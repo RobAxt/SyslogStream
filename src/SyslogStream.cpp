@@ -69,12 +69,10 @@ SyslogStreamClass::loop(void) {
 
 void
 SyslogStreamClass::printMessage(void) {
-  while(!_offlineQueue.isEmpty()) {
+  if(!_offlineQueue.isEmpty()) {
     char *msg = _offlineQueue.pop();
     _syslog.logf(_level,"%s", msg);
     delete [] msg;
-    yield();
-    delay(7);
   }
 }
 
